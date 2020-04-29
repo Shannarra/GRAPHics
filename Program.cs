@@ -8,26 +8,31 @@ namespace GRAPHics
         {
             string[] vertices = "KH,PK,NY,SF,LM,BGT,PAR,LON,VARNA".Split(',');
 
-            var connections = new System.Collections.Generic.List<string[]>
+            var connections = new System.Collections.Generic.List<Weighted.VertexConnection<string>>
             {
-                new string[2] {"KH", "PAR" },
-                new string[2] {"KH", "PK" },
-                new string[2] {"SF", "PAR" },
-                new string[2] {"LON", "PAR" },
-                new string[2] {"LON", "NY" },
-                new string[2] {"KH", "LON" },
-                new string[2] {"SF", "LON" },
-                new string[2] {"PK", "LON" },
-                new string[2] {"NY", "BGT"},
-                new string[2] {"BGT", "LM" }
+                new Weighted.VertexConnection<string>("KH",  "PAR", 1 ),
+                new Weighted.VertexConnection<string>("KH",  "PK" , 2 ),
+                new Weighted.VertexConnection<string>("SF",  "PAR", 3 ),
+                new Weighted.VertexConnection<string>("LON", "PAR", 9 ),
+                new Weighted.VertexConnection<string>("LON", "NY" , 10 ),
+                new Weighted.VertexConnection<string>("KH",  "LON", 4 ),
+                new Weighted.VertexConnection<string>("SF",  "LON", 3 ),
+                new Weighted.VertexConnection<string>("PK",  "LON", 9 ),
+                new Weighted.VertexConnection<string>("NY",  "BGT", 4 ),
+                new Weighted.VertexConnection<string>("BGT", "LM" , 3)
             };
 
-            Graph<string> graph = new Graph<string>(vertices, connections);
+            //Graph<string> graph = new Graph<string>(vertices, connections);
 
-            graph.AddNode("SF", "SF");
-            graph.AddNode("VARNA", "VARNA");
+            //graph.AddNode("SF", "SF");
+            //graph.AddNode("VARNA", "VARNA");
 
-            Console.WriteLine(graph.DFS("VARNA", "VARNA"));
+            //Console.WriteLine(graph.DFS("VARNA", "VARNA"));
+
+            Weighted.WeightedGraph<string> weightedGraph = new Weighted.WeightedGraph<string>(vertices, connections);
+            weightedGraph.AddNode(new Weighted.VertexConnection<string>("VARNA", "VARNA", 1));
+            Console.WriteLine(weightedGraph.DFS("KH", "PK"));
+
         }
     }
 }

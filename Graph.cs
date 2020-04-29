@@ -13,14 +13,23 @@ namespace GRAPHics
         private readonly Dictionary<TVertex, List<TVertex>> adjacencyTable
             = new Dictionary<TVertex, List<TVertex>>();
 
+        public TVertex[] Vertices { get; private set; }
+
+        public List<List<TVertex>> Connections { get; private set; } 
+
         public Graph(TVertex[] vertices, List<TVertex[]> connections)
         {
+            Vertices = vertices;
+
             foreach (TVertex vertex in vertices)
                 adjacencyTable.Add(vertex, new List<TVertex>());
 
             for (int i = 0; i < connections.Count; i++)
                 if (connections[i].Length == 2)
                     AddNode(connections[i][0], connections[i][1]);
+
+            foreach (var item in adjacencyTable)
+                Connections.Add(item.Value);
         }
 
         public void AddNode(TVertex origin, TVertex destination)
